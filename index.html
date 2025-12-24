@@ -76,14 +76,28 @@
     .brandlock{
       display:flex; align-items:center; gap:10px; min-width: 180px;
     }
+
+    /* NEW: image logo */
     .logo{
-      width:38px; height:38px; border-radius: 12px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 45%),
-                  linear-gradient(135deg, rgba(34,197,94,.95), rgba(59,130,246,.75));
+      width:38px;
+      height:38px;
+      border-radius: 12px;
       box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,.14);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: rgba(255,255,255,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    [data-theme="light"] .logo{ border:1px solid rgba(2,6,23,.10); }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit: contain;
+      display:block;
+      padding: 4px;
+    }
+
     .brandtext{
       display:flex; flex-direction:column; line-height:1.1;
     }
@@ -460,7 +474,11 @@
     <div class="wrap">
       <div class="nav">
         <div class="brandlock">
-          <div class="logo" aria-hidden="true"></div>
+          <!-- UPDATED: PMVL logo image -->
+          <div class="logo" aria-label="Potentia Motus Ventures logo">
+            <img src="PMVL_logo.png" alt="Potentia Motus Ventures LLC logo">
+          </div>
+
           <div class="brandtext">
             <strong>Potentia Motus Ventures LLC</strong>
             <span>Apps • Websites • Product Prototypes</span>
