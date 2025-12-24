@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Potentia Motus Ventures LLC — App Development Studio</title>
-  <meta name="description" content="Potentia Motus Ventures LLC builds practical mobile apps and modern websites for Uganda and beyond. Android on Google Play now, more iOS apps coming soon." />
+  <title>Potentia Motus Ventures LLC — Apps on Google Play</title>
+  <meta name="description" content="Potentia Motus Ventures LLC builds practical Android apps and modern websites for Uganda and beyond. Download MoPay, MoMo Rates, and WA Direct on Google Play." />
 
   <style>
     :root{
@@ -18,10 +18,9 @@
       --muted2: rgba(2,6,23,.58);
       --shadow: 0 12px 26px rgba(2,6,23,.10);
 
-      --brand: #22c55e;     /* green */
-      --brand2:#3b82f6;     /* blue accent */
+      --brand: #22c55e;
+      --brand2:#3b82f6;
       --warn:#f59e0b;
-      --danger:#ef4444;
 
       --radius: 18px;
       --radius2: 26px;
@@ -29,7 +28,7 @@
       --maxw: 1100px;
       --pad: 18px;
 
-      --headerH: 68px;      /* used for anchor offset */
+      --headerH: 68px;
     }
 
     *{ box-sizing:border-box; }
@@ -48,7 +47,6 @@
     a{ color:inherit; text-decoration:none; }
     .wrap{ max-width: var(--maxw); margin:0 auto; padding: 0 var(--pad); }
 
-    /* Keep anchors visible under fixed header */
     section{ scroll-margin-top: calc(var(--headerH) + 14px); }
 
     /* Top bar (fixed) */
@@ -61,8 +59,6 @@
       background: linear-gradient(to bottom, rgba(255,255,255,.90), rgba(255,255,255,.70));
       border-bottom: 1px solid rgba(2,6,23,.08);
     }
-
-    /* Create space so content isn't hidden behind fixed header */
     main{ padding-top: calc(var(--headerH) + 12px); }
 
     .nav{
@@ -77,22 +73,17 @@
       flex: 0 0 auto;
     }
 
-    /* Image logo */
     .logo{
-      width:36px;
-      height:36px;
+      width:36px; height:36px;
       border-radius: 12px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
       overflow: hidden;
       background: rgba(255,255,255,.85);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display:flex; align-items:center; justify-content:center;
     }
     .logo img{
-      width:100%;
-      height:100%;
+      width:100%; height:100%;
       object-fit: contain;
       display:block;
       padding: 4px;
@@ -117,7 +108,7 @@
       text-overflow:ellipsis;
     }
 
-    /* Header items must fit one row (no wrapping) */
+    /* Desktop nav links */
     .navlinks{
       display:flex;
       gap: 10px;
@@ -164,14 +155,16 @@
     }
     .btn:hover{ background: rgba(241,245,249,.95); }
     .btn:active{ transform: scale(.98); }
-
     .btn.primary{
       border-color: rgba(34,197,94,.35);
       background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(34,197,94,.70));
       color: #072013;
     }
-
-    /* View portfolio should be rectangular with rounded edges */
+    .btn.blue{
+      border-color: rgba(59,130,246,.35);
+      background: linear-gradient(135deg, rgba(59,130,246,.92), rgba(59,130,246,.68));
+      color: #061428;
+    }
     .btn.portfolio{
       border-radius: 14px;
       padding: 11px 16px;
@@ -179,10 +172,85 @@
       letter-spacing: .2px;
     }
 
-    .btn.blue{
-      border-color: rgba(59,130,246,.35);
-      background: linear-gradient(135deg, rgba(59,130,246,.92), rgba(59,130,246,.68));
-      color: #061428;
+    /* Mobile menu button */
+    .menuBtn{
+      display:none;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.9);
+      box-shadow: var(--shadow);
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      user-select:none;
+    }
+    .menuBtn:active{ transform: scale(.98); }
+    .hamburger{
+      width: 18px;
+      height: 14px;
+      position: relative;
+    }
+    .hamburger span{
+      position:absolute;
+      left:0; right:0;
+      height: 2px;
+      border-radius: 2px;
+      background: rgba(2,6,23,.75);
+      transition: transform .18s ease, top .18s ease, opacity .18s ease;
+    }
+    .hamburger span:nth-child(1){ top: 1px; }
+    .hamburger span:nth-child(2){ top: 6px; }
+    .hamburger span:nth-child(3){ top: 11px; }
+
+    /* Mobile overlay menu */
+    .mobileNav{
+      position: fixed;
+      left: 0; right: 0;
+      top: calc(var(--headerH) + 8px);
+      z-index: 60;
+      display: none;
+      padding: 0 var(--pad);
+    }
+    .mobileNav .panel{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(2,6,23,.10);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .mobileNav .links{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 12px;
+    }
+    .mobileNav a{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(2,6,23,.03);
+      color: rgba(2,6,23,.88);
+      font-weight: 800;
+      font-size: 13px;
+      text-align:center;
+    }
+    .mobileNav a:active{ transform: scale(.99); }
+
+    /* Backdrop when menu open */
+    .backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(2,6,23,.18);
+      backdrop-filter: blur(2px);
+      z-index: 55;
+      display:none;
     }
 
     /* Hero */
@@ -261,7 +329,6 @@
       height:100%;
     }
 
-    /* Store badges side-by-side (same size) */
     .storeBadges{
       display:flex;
       gap: 10px;
@@ -270,13 +337,12 @@
       flex-wrap: nowrap;
     }
     .storeBadges img{
-      height: 44px;         /* playstore = standard */
+      height: 44px;
       width: auto;
       object-fit: contain;
       filter: drop-shadow(0 10px 18px rgba(2,6,23,.10));
       display:block;
     }
-    /* Force App Store badge to match Play Store size */
     .storeBadges img[src*="appstore"]{
       height: 44px;
       max-height: 44px;
@@ -294,7 +360,6 @@
       font-weight:600;
     }
 
-    /* Sections */
     section{ padding: 18px 0; }
     .sectionTitle{
       display:flex; align-items:flex-end; justify-content:space-between; gap: 12px;
@@ -378,10 +443,8 @@
       align-items:center;
       justify-content:space-between;
     }
-
     .btn.link{ padding: 10px 12px; font-weight: 800; background: rgba(2,6,23,.03); }
 
-    /* Google Play badge (CSS-only) */
     .gplayBadge{
       display:inline-flex;
       align-items:center;
@@ -405,7 +468,6 @@
     .gplayText small{ font-size:10px; color: var(--muted); font-weight:800; }
     .gplayText span{ font-size:13px; }
 
-    /* Testimonials */
     .quote{
       padding: 16px;
       border-radius: var(--radius);
@@ -417,7 +479,6 @@
     .quote b{ display:block; margin-top: 10px; font-size: 13px; color: var(--text); }
     .stars{ letter-spacing: 2px; font-size: 12px; color: var(--warn); margin-bottom: 10px; }
 
-    /* Request form */
     .formGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -438,15 +499,12 @@
     textarea{ min-height: 110px; resize: vertical; }
     .formActions{ display:flex; gap: 10px; flex-wrap:wrap; margin-top: 12px; }
 
-    /* Developer */
     .devGrid{
       display:grid;
-      grid-template-columns: 180px 1fr; /* photo + text */
+      grid-template-columns: 180px 1fr;
       gap: 12px;
       align-items: start;
     }
-
-    /* Passport photo size */
     .photo{
       width: 160px;
       height: 200px;
@@ -457,13 +515,11 @@
       background: rgba(255,255,255,.85);
       display:block;
     }
-
     .devCard h3{ margin:0; font-size: 18px; }
     .devCard p{ margin: 8px 0 0; color: var(--muted); font-size: 14px; }
     .contactRow{ display:flex; gap: 10px; flex-wrap:wrap; margin-top: 14px; }
     .contactRow a.btn{ text-decoration:none; }
 
-    /* Footer */
     footer{
       padding: 24px 0 34px;
       color: var(--muted2);
@@ -485,11 +541,13 @@
       .formGrid{ grid-template-columns: 1fr; }
     }
 
-    /* On small screens, keep header one line: hide nav links */
+    /* Mobile behavior: show hamburger, hide desktop nav */
     @media (max-width: 760px){
+      :root{ --headerH: 64px; }
       .navlinks{ display:none; }
       .brandtext span{ display:none; }
-      :root{ --headerH: 64px; }
+      .menuBtn{ display:inline-flex; }
+      .actions{ min-width: auto; }
     }
 
     @media (max-width: 640px){
@@ -498,6 +556,7 @@
       .hero{ padding-top: 18px; }
       .devGrid{ grid-template-columns: 1fr; }
       .photo{ width: 160px; height: 200px; }
+      .mobileNav .links{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -510,7 +569,6 @@
           <div class="logo" aria-label="Potentia Motus Ventures logo">
             <img src="PMVL_logo.png" alt="Potentia Motus Ventures LLC logo">
           </div>
-
           <div class="brandtext">
             <strong>Potentia Motus Ventures LLC</strong>
             <span>Apps • Websites • Product Prototypes</span>
@@ -529,10 +587,35 @@
 
         <div class="actions">
           <a class="btn primary portfolio" href="#apps">View portfolio</a>
+
+          <!-- Mobile menu button -->
+          <button class="menuBtn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+            <div class="hamburger" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+          </button>
         </div>
       </div>
     </div>
   </header>
+
+  <!-- Backdrop -->
+  <div class="backdrop" id="backdrop" aria-hidden="true"></div>
+
+  <!-- Mobile menu -->
+  <div class="mobileNav" id="mobileNav" role="dialog" aria-label="Mobile menu">
+    <div class="panel">
+      <div class="links">
+        <a href="#apps">Apps</a>
+        <a href="#websites">Websites</a>
+        <a href="#roadmap">In development</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#request">Request a project</a>
+        <a href="#developer">Developer</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
 
   <main>
     <!-- HERO -->
@@ -548,7 +631,8 @@
             <h1>Building useful apps & modern websites for Uganda and beyond.</h1>
             <p class="sub">
               Potentia Motus Ventures LLC is an app development studio creating
-              Android apps on Google Play today, with more coming for the iOS App Store.
+              Android apps on Google Play today (including <b>MoPay</b> — Merchant Pay Assistant Uganda),
+              with more coming for the iOS App Store.
               We focus on simplicity, speed, and clean user experience.
             </p>
 
@@ -577,8 +661,6 @@
 
         <div class="card aside">
           <div class="cardPad asideInner">
-
-            <!-- Store badges side-by-side (same size) -->
             <div class="storeBadges" aria-label="Store badges">
               <img src="playstore.png" alt="Google Play" />
               <img src="appstore.png" alt="Apple App Store" />
@@ -624,6 +706,44 @@
         </div>
 
         <div class="grid3">
+          <!-- MoPay (LIVE) -->
+          <article class="itemCard">
+            <div class="itemTop">
+              <img class="appIcon" src="MoPay_Icon.png" alt="MoPay app icon">
+              <div class="meta">
+                <b>MoPay</b>
+                <span>Merchant Pay Assistant Uganda</span>
+              </div>
+            </div>
+            <p class="desc">
+              Pay Mobile Money merchants faster in Uganda by avoiding long, confusing USSD typing.
+              MoPay auto-generates the correct MTN merchant payment USSD code, and provides a quick entry point for Airtel Money.
+              Save favorite merchants, confirm before dialing, and it works offline.
+            </p>
+            <div class="chips">
+              <span class="chip">MTN MoMo</span>
+              <span class="chip">Airtel Money</span>
+              <span class="chip">Offline</span>
+              <span class="chip">Favorites</span>
+            </div>
+            <div class="itemActions">
+              <a class="btn link primary" target="_blank" rel="noopener"
+                 href="https://play.google.com/store/apps/details?id=com.mopay.assistant">
+                Open on Google Play
+              </a>
+
+              <a class="gplayBadge" target="_blank" rel="noopener"
+                 href="https://play.google.com/store/apps/details?id=com.mopay.assistant"
+                 aria-label="Get MoPay on Google Play">
+                <span class="tri" aria-hidden="true"></span>
+                <span class="gplayText">
+                  <small>GET IT ON</small>
+                  <span>Google Play</span>
+                </span>
+              </a>
+            </div>
+          </article>
+
           <!-- WA Direct -->
           <article class="itemCard">
             <div class="itemTop">
@@ -693,38 +813,6 @@
                   <span>Google Play</span>
                 </span>
               </a>
-            </div>
-          </article>
-
-          <!-- MoPay -->
-          <article class="itemCard">
-            <div class="itemTop">
-              <img class="appIcon" src="MoPay_Icon.png" alt="MoPay icon">
-              <div class="meta">
-                <b>MoPay</b>
-                <span>Merchant payments assistant</span>
-              </div>
-            </div>
-            <p class="desc">
-              An assistant that eases payments to merchants using MTN MoMoPay
-              without entering lengthy and complicated USSD codes.
-            </p>
-            <div class="chips">
-              <span class="chip">MoMoPay</span>
-              <span class="chip">Merchant</span>
-              <span class="chip">Assistant</span>
-            </div>
-            <div class="itemActions">
-              <span class="btn" style="cursor:default; opacity:.9;">
-                Play link coming soon
-              </span>
-              <span class="gplayBadge" style="opacity:.6; cursor:default;">
-                <span class="tri" aria-hidden="true"></span>
-                <span class="gplayText">
-                  <small>COMING TO</small>
-                  <span>Google Play</span>
-                </span>
-              </span>
             </div>
           </article>
         </div>
@@ -860,6 +948,11 @@
         <div class="grid3">
           <div class="quote">
             <div class="stars">★★★★★</div>
+            <p>“MoPay makes merchant payments so much faster — no more long USSD typing.”</p>
+            <b>— MoPay user (Uganda)</b>
+          </div>
+          <div class="quote">
+            <div class="stars">★★★★★</div>
             <p>“WA Direct is so convenient — I can message numbers quickly without saving contacts.”</p>
             <b>— App user (Google Play)</b>
           </div>
@@ -868,16 +961,11 @@
             <p>“MoMo Rates helped me confirm charges before sending money. The comparisons are super helpful.”</p>
             <b>— Mobile money user (Uganda)</b>
           </div>
-          <div class="quote">
-            <div class="stars">★★★★★</div>
-            <p>“Clean UI, fast loading, and it does exactly what it promises. Looking forward to future releases.”</p>
-            <b>— Early adopter</b>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- REQUEST A PROJECT -->
+    <!-- REQUEST -->
     <section id="request">
       <div class="wrap">
         <div class="sectionTitle">
@@ -985,7 +1073,6 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
       <div class="wrap">
         <div class="foot">
@@ -1009,15 +1096,11 @@
 
   <script>
     // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const id = a.getAttribute('href');
-        const el = document.querySelector(id);
-        if (!el) return;
-        e.preventDefault();
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
+    function smoothScrollTo(hash){
+      const el = document.querySelector(hash);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -1094,8 +1177,53 @@
       clearForm();
     });
 
-    // init WA link
     updateWhatsAppLink();
+
+    // Desktop nav smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === "#") return;
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        closeMenu();
+        smoothScrollTo(id);
+      });
+    });
+
+    // Mobile menu logic
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const backdrop = document.getElementById('backdrop');
+
+    function openMenu(){
+      mobileNav.style.display = "block";
+      backdrop.style.display = "block";
+      menuBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
+    function closeMenu(){
+      mobileNav.style.display = "none";
+      backdrop.style.display = "none";
+      menuBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+    function toggleMenu(){
+      const open = menuBtn.getAttribute("aria-expanded") === "true";
+      open ? closeMenu() : openMenu();
+    }
+
+    menuBtn.addEventListener('click', toggleMenu);
+    backdrop.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    // If resized to desktop while menu is open, close it
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 760) closeMenu();
+    });
   </script>
 </body>
 </html>
