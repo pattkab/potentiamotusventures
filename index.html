@@ -63,14 +63,15 @@
 
     .nav{
       display:flex; align-items:center; justify-content:space-between;
-      gap: 12px;
+      gap: 10px;
       width:100%;
+      min-width: 0;
     }
 
     .brandlock{
       display:flex; align-items:center; gap:10px;
-      min-width: 220px;
-      flex: 0 0 auto;
+      min-width: 0; /* IMPORTANT: prevents overflow on mobile */
+      flex: 1 1 auto;
     }
 
     .logo{
@@ -81,6 +82,7 @@
       overflow: hidden;
       background: rgba(255,255,255,.85);
       display:flex; align-items:center; justify-content:center;
+      flex: 0 0 auto;
     }
     .logo img{
       width:100%; height:100%;
@@ -99,6 +101,7 @@
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
+      max-width: 100%;
     }
     .brandtext span{
       font-size: 11px;
@@ -106,6 +109,7 @@
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
+      max-width: 100%;
     }
 
     /* Desktop nav links */
@@ -136,7 +140,7 @@
     .actions{
       display:flex; align-items:center; gap: 10px; justify-content:flex-end;
       flex: 0 0 auto;
-      min-width: 150px;
+      min-width: 0; /* IMPORTANT: prevents overflow */
     }
 
     .btn{
@@ -185,7 +189,10 @@
       justify-content:center;
       cursor:pointer;
       user-select:none;
+      flex: 0 0 auto;
+      transition: transform .08s ease, background .2s ease;
     }
+    .menuBtn:hover{ background: rgba(241,245,249,.95); }
     .menuBtn:active{ transform: scale(.98); }
     .hamburger{
       width: 18px;
@@ -204,11 +211,22 @@
     .hamburger span:nth-child(2){ top: 6px; }
     .hamburger span:nth-child(3){ top: 11px; }
 
+    /* Animated hamburger -> X */
+    .menuBtn[aria-expanded="true"] .hamburger span:nth-child(1){
+      top: 6px; transform: rotate(45deg);
+    }
+    .menuBtn[aria-expanded="true"] .hamburger span:nth-child(2){
+      opacity: 0;
+    }
+    .menuBtn[aria-expanded="true"] .hamburger span:nth-child(3){
+      top: 6px; transform: rotate(-45deg);
+    }
+
     /* Mobile overlay menu */
     .mobileNav{
       position: fixed;
       left: 0; right: 0;
-      top: calc(var(--headerH) + 8px);
+      top: calc(var(--headerH) + 10px);
       z-index: 60;
       display: none;
       padding: 0 var(--pad);
@@ -216,7 +234,7 @@
     .mobileNav .panel{
       max-width: var(--maxw);
       margin: 0 auto;
-      background: rgba(255,255,255,.96);
+      background: rgba(255,255,255,.98);
       border: 1px solid rgba(2,6,23,.10);
       border-radius: 20px;
       box-shadow: var(--shadow);
@@ -541,13 +559,17 @@
       .formGrid{ grid-template-columns: 1fr; }
     }
 
-    /* Mobile behavior: show hamburger, hide desktop nav */
+    /* ✅ MOBILE HEADER FIXES:
+       - Hide large "View portfolio" button on small screens (it causes overflow)
+       - Show hamburger menu
+       - Keep brand in one line with ellipsis (no overflow)
+    */
     @media (max-width: 760px){
       :root{ --headerH: 64px; }
       .navlinks{ display:none; }
       .brandtext span{ display:none; }
       .menuBtn{ display:inline-flex; }
-      .actions{ min-width: auto; }
+      .btn.portfolio{ display:none; }  /* ✅ prevents header overflow */
     }
 
     @media (max-width: 640px){
@@ -586,9 +608,10 @@
         </nav>
 
         <div class="actions">
+          <!-- Desktop CTA (hidden on mobile via CSS above) -->
           <a class="btn primary portfolio" href="#apps">View portfolio</a>
 
-          <!-- Mobile menu button -->
+          <!-- ✅ Mobile menu button (shown on mobile) -->
           <button class="menuBtn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
             <div class="hamburger" aria-hidden="true">
               <span></span><span></span><span></span>
@@ -1095,7 +1118,7 @@
   </main>
 
   <script>
-    // Smooth scroll
+    // Smooth scroll helper
     function smoothScrollTo(hash){
       const el = document.querySelector(hash);
       if (!el) return;
@@ -1179,7 +1202,7 @@
 
     updateWhatsAppLink();
 
-    // Desktop nav smooth scroll
+    // Smooth scroll on all in-page links + close menu
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const id = a.getAttribute('href');
