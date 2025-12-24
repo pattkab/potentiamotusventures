@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Potentia Motus Ventures LLC — App Development Studio</title>
+  <meta name="description" content="Potentia Motus Ventures LLC builds practical mobile apps and modern websites for Uganda and beyond. Android on Google Play now, more iOS apps coming soon." />
+
+  <style>
+    :root{
+      --bg: #0b1220;
+      --surface: rgba(255,255,255,.06);
+      --surface2: rgba(255,255,255,.10);
+      --border: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --muted2: rgba(255,255,255,.55);
+
+      --brand: #22c55e;     /* green */
+      --brand2:#3b82f6;     /* blue accent */
+      --warn:#f59e0b;
+      --danger:#ef4444;
+
+      --shadow: 0 14px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 26px;
+
+      --maxw: 1100px;
+      --pad: 18px;
+    }
+
+    [data-theme="light"]{
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface2: #f1f5f9;
+      --border: rgba(2,6,23,.12);
+      --text: rgba(2,6,23,.92);
+      --muted: rgba(2,6,23,.72);
+      --muted2: rgba(2,6,23,.58);
+      --shadow: 0 12px 26px rgba(2,6,23,.10);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 650px at 20% -10%, rgba(34,197,94,.22), transparent 55%),
+                  radial-gradient(900px 520px at 95% 0%, rgba(59,130,246,.18), transparent 55%),
+                  radial-gradient(900px 520px at 30% 105%, rgba(245,158,11,.12), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width: var(--maxw); margin:0 auto; padding: 0 var(--pad); }
+
+    /* Top bar */
+    .topbar{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,0));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    [data-theme="light"] .topbar{
+      background: linear-gradient(to bottom, rgba(255,255,255,.78), rgba(255,255,255,.55));
+      border-bottom: 1px solid rgba(2,6,23,.08);
+    }
+
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 12px;
+    }
+    .brandlock{
+      display:flex; align-items:center; gap:10px; min-width: 180px;
+    }
+    .logo{
+      width:38px; height:38px; border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 45%),
+                  linear-gradient(135deg, rgba(34,197,94,.95), rgba(59,130,246,.75));
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    [data-theme="light"] .logo{ border:1px solid rgba(2,6,23,.10); }
+    .brandtext{
+      display:flex; flex-direction:column; line-height:1.1;
+    }
+    .brandtext strong{ font-size: 14px; letter-spacing:.2px; }
+    .brandtext span{ font-size: 12px; color: var(--muted); }
+
+    .navlinks{
+      display:flex; gap: 14px; flex-wrap:wrap; justify-content:center;
+    }
+    .navlinks a{
+      font-size: 13px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .navlinks a:hover{
+      color: var(--text);
+      border-color: var(--border);
+      background: rgba(255,255,255,.06);
+    }
+    [data-theme="light"] .navlinks a:hover{ background: rgba(2,6,23,.04); }
+
+    .actions{
+      display:flex; align-items:center; gap: 10px; justify-content:flex-end;
+      min-width: 180px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 13px;
+      cursor:pointer;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .btn:hover{ background: rgba(255,255,255,.10); }
+    .btn:active{ transform: scale(.98); }
+
+    [data-theme="light"] .btn{
+      background: rgba(255,255,255,.85);
+    }
+
+    .btn.primary{
+      border-color: rgba(34,197,94,.45);
+      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(34,197,94,.70));
+      color: #06240f;
+    }
+    [data-theme="light"] .btn.primary{ color:#072013; }
+
+    .btn.ghost{ background: transparent; }
+
+    .btn.blue{
+      border-color: rgba(59,130,246,.45);
+      background: linear-gradient(135deg, rgba(59,130,246,.92), rgba(59,130,246,.68));
+      color: #061428;
+    }
+    [data-theme="light"] .btn.blue{ color:#061428; }
+
+    .icon{ width: 16px; height:16px; display:inline-block; }
+
+    /* Hero */
+    .hero{ padding: 46px 0 18px; }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .card{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .cardPad{ padding: 22px; }
+
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-size: 12px;
+      width: fit-content;
+    }
+    [data-theme="light"] .kicker{ background: rgba(2,6,23,.04); }
+
+    h1{
+      margin: 12px 0 10px;
+      font-size: clamp(28px, 3.6vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.6px;
+    }
+    .sub{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 70ch;
+    }
+
+    .heroCtas{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .stat{
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+    }
+    [data-theme="light"] .stat{ background: rgba(2,6,23,.03); }
+    .stat b{ display:block; font-size: 18px; }
+    .stat span{ color: var(--muted); font-size: 12px; }
+
+    .aside{ position: relative; min-height: 100%; }
+    .aside::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(520px 260px at 30% 30%, rgba(34,197,94,.24), transparent 58%),
+                  radial-gradient(520px 260px at 90% 60%, rgba(59,130,246,.20), transparent 55%);
+      pointer-events:none;
+    }
+    .playBadge{
+      width: 100%;
+      height: 64px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.20));
+    }
+    [data-theme="light"] .playBadge{ filter: drop-shadow(0 10px 18px rgba(2,6,23,.10)); }
+
+    .asideInner{
+      position: relative;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      height:100%;
+    }
+    .miniRow{ display:flex; gap: 10px; flex-wrap:wrap; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight:600;
+    }
+    [data-theme="light"] .pill{ background: rgba(2,6,23,.04); }
+
+    /* Sections */
+    section{ padding: 18px 0; }
+    .sectionTitle{
+      display:flex; align-items:flex-end; justify-content:space-between; gap: 12px;
+      margin: 8px 0 12px;
+    }
+    .sectionTitle h2{ margin:0; font-size: 20px; letter-spacing: -0.2px; }
+    .sectionTitle p{ margin:0; color: var(--muted); font-size: 13px; }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .itemCard{
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 260px;
+    }
+    .itemTop{
+      display:flex; align-items:center; gap: 12px;
+      padding: 14px 14px 10px;
+    }
+    .appIcon{
+      width: 48px; height:48px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.08);
+    }
+    .meta{ flex:1; min-width:0; }
+    .meta b{
+      display:block;
+      font-size: 15px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .meta span{
+      display:block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .desc{
+      padding: 0 14px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      margin:0;
+      flex:1;
+    }
+    .chips{
+      display:flex; gap: 8px; flex-wrap:wrap;
+      padding: 0 14px 10px;
+    }
+    .chip{
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    [data-theme="light"] .chip{ background: rgba(2,6,23,.03); }
+
+    .itemActions{
+      padding: 12px 14px 14px;
+      display:flex; gap: 10px; flex-wrap:wrap;
+      border-top: 1px solid rgba(255,255,255,.06);
+      align-items:center;
+      justify-content:space-between;
+    }
+    [data-theme="light"] .itemActions{ border-top: 1px solid rgba(2,6,23,.08); }
+
+    .btn.link{ padding: 10px 12px; font-weight: 800; background: rgba(255,255,255,.06); }
+
+    /* Google Play badge (CSS-only) */
+    .gplayBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    [data-theme="light"] .gplayBadge{ background: rgba(2,6,23,.03); }
+    .tri{
+      width:0; height:0;
+      border-left: 12px solid rgba(255,255,255,.85);
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      filter: drop-shadow(0 8px 10px rgba(0,0,0,.25));
+    }
+    [data-theme="light"] .tri{ border-left-color: rgba(2,6,23,.82); filter: drop-shadow(0 8px 10px rgba(2,6,23,.10)); }
+    .gplayText{ display:flex; flex-direction:column; line-height:1.05; }
+    .gplayText small{ font-size:10px; color: var(--muted); font-weight:800; }
+    .gplayText span{ font-size:13px; }
+
+    /* Testimonials */
+    .quote{
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      box-shadow: var(--shadow);
+    }
+    [data-theme="light"] .quote{ background: rgba(255,255,255,.75); }
+    .quote p{ margin:0; color: var(--muted); font-size: 14px; }
+    .quote b{ display:block; margin-top: 10px; font-size: 13px; color: var(--text); }
+    .stars{ letter-spacing: 2px; font-size: 12px; color: var(--warn); margin-bottom: 10px; }
+
+    /* Request form */
+    .formGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .field{ display:flex; flex-direction:column; gap: 6px; }
+    label{ font-size: 12px; color: var(--muted); font-weight: 800; }
+    input, textarea, select{
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline: none;
+      font-size: 14px;
+    }
+    [data-theme="light"] input, [data-theme="light"] textarea, [data-theme="light"] select{
+      background: rgba(255,255,255,.9);
+      color: rgba(2,6,23,.92);
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+    .formActions{ display:flex; gap: 10px; flex-wrap:wrap; margin-top: 12px; }
+
+    /* Developer */
+    .devGrid{
+      display:grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .photo{
+      width:100%;
+      height: 100%;
+      min-height: 320px;
+      object-fit: cover;
+      border-radius: var(--radius2);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .devCard h3{ margin:0; font-size: 18px; }
+    .devCard p{ margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+    .contactRow{ display:flex; gap: 10px; flex-wrap:wrap; margin-top: 14px; }
+    .contactRow a.btn{ text-decoration:none; }
+
+    /* Footer */
+    footer{
+      padding: 24px 0 34px;
+      color: var(--muted2);
+      font-size: 12px;
+    }
+    .foot{
+      display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+    }
+    [data-theme="light"] .foot{ background: rgba(255,255,255,.75); }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: repeat(2, 1fr); }
+      .devGrid{ grid-template-columns: 1fr; }
+      .photo{ min-height: 260px; }
+      .actions{ min-width: unset; }
+      .brandlock{ min-width: unset; }
+      .formGrid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px){
+      .navlinks{ display:none; }
+      .grid3, .grid2{ grid-template-columns: 1fr; }
+      .stats{ grid-template-columns: 1fr; }
+      .hero{ padding-top: 34px; }
+      .btn{ padding: 10px 12px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brandlock">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="brandtext">
+            <strong>Potentia Motus Ventures LLC</strong>
+            <span>Apps • Websites • Product Prototypes</span>
+          </div>
+        </div>
+
+        <nav class="navlinks" aria-label="Primary navigation">
+          <a href="#apps">Apps</a>
+          <a href="#websites">Websites</a>
+          <a href="#roadmap">In development</a>
+          <a href="#testimonials">Reviews</a>
+          <a href="#request">Request a project</a>
+          <a href="#developer">Developer</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="actions">
+          <button class="btn ghost" id="themeBtn" title="Toggle light/dark">
+            <span class="icon" aria-hidden="true">🌙</span>
+            <span id="themeLabel">Dark</span>
+          </button>
+          <a class="btn primary" href="#apps">View portfolio</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <div class="wrap hero">
+      <div class="heroGrid">
+        <div class="card">
+          <div class="cardPad">
+            <div class="kicker">
+              <span aria-hidden="true">⚡</span>
+              <span>Practical tools built for real-life users</span>
+            </div>
+
+            <h1>Building useful apps & modern websites for Uganda and beyond.</h1>
+            <p class="sub">
+              Potentia Motus Ventures LLC is an app development studio creating
+              Android apps on Google Play today, with more coming for the iOS App Store.
+              We focus on simplicity, speed, and clean user experience.
+            </p>
+
+            <div class="heroCtas">
+              <a class="btn primary" href="#apps">Explore apps</a>
+              <a class="btn blue" href="#websites">Explore websites</a>
+              <a class="btn" href="#request">Request a project</a>
+            </div>
+
+            <div class="stats" aria-label="Highlights">
+              <div class="stat">
+                <b>3+</b>
+                <span>Published Android apps</span>
+              </div>
+              <div class="stat">
+                <b>3+</b>
+                <span>Websites shipped</span>
+              </div>
+              <div class="stat">
+                <b>10+</b>
+                <span>Active builds in progress</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card aside">
+          <div class="cardPad asideInner">
+            <img class="playBadge" src="playstore.png" alt="Google Play" />
+            <div class="miniRow">
+              <span class="pill">Android (Google Play)</span>
+              <span class="pill">Web (GitHub Pages)</span>
+              <span class="pill">iOS coming soon</span>
+            </div>
+
+            <div class="card" style="border-radius:18px; background:rgba(255,255,255,.06); border:1px solid var(--border); box-shadow:none;">
+              <div class="cardPad" style="padding:14px;">
+                <div style="font-weight:800;">What we build</div>
+                <div style="color:var(--muted); font-size:13px; margin-top:6px;">
+                  Utility apps • Business tools • Payments assistants • E-commerce ordering • Ministry platforms • POS systems
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="border-radius:18px; background:rgba(255,255,255,.06); border:1px solid var(--border); box-shadow:none;">
+              <div class="cardPad" style="padding:14px;">
+                <div style="font-weight:800;">Focus</div>
+                <div style="color:var(--muted); font-size:13px; margin-top:6px;">
+                  Clear UX, offline-friendly thinking, and lightweight solutions that work well on everyday devices.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPS -->
+    <section id="apps">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <div>
+            <h2>Apps on Google Play</h2>
+            <p>Live products you can download today.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <!-- WA Direct -->
+          <article class="itemCard">
+            <div class="itemTop">
+              <img class="appIcon" src="WA_Direct.png" alt="WA Direct app icon">
+              <div class="meta">
+                <b>WA Direct</b>
+                <span>WhatsApp without saving contacts</span>
+              </div>
+            </div>
+            <p class="desc">
+              Send WhatsApp messages instantly without saving the number to your phonebook.
+              Fast, simple, and convenient for one-time chats.
+            </p>
+            <div class="chips">
+              <span class="chip">WhatsApp</span>
+              <span class="chip">Utility</span>
+              <span class="chip">Fast</span>
+            </div>
+            <div class="itemActions">
+              <a class="btn link primary" target="_blank" rel="noopener"
+                 href="https://play.google.com/store/apps/details?id=com.potentia.wadirect">
+                Open on Google Play
+              </a>
+
+              <a class="gplayBadge" target="_blank" rel="noopener"
+                 href="https://play.google.com/store/apps/details?id=com.potentia.wadirect"
+                 aria-label="Get WA Direct on Google Play">
+                <span class="tri" aria-hidden="true"></span>
+                <span class="gplayText">
+                  <small>GET IT ON</small>
+                  <span>Google Play</span>
+                </span>
+              </a>
+            </div>
+          </article>
+
+          <!-- MoMo Rates -->
+          <article class="itemCard">
+            <div class="itemTop">
+              <img class="appIcon" src="playstore.png" alt="MoMo Rates icon">
+              <div class="meta">
+                <b>MoMo Rates</b>
+                <span>MTN & Airtel charges + tax</span>
+              </div>
+            </div>
+            <p class="desc">
+              See mobile money charges for Uganda (MTN & Airtel) across transaction types
+              (send, withdraw, pay bills, etc.), including tax computation and comparison.
+            </p>
+            <div class="chips">
+              <span class="chip">Mobile Money</span>
+              <span class="chip">Compare Rates</span>
+              <span class="chip">Tax Included</span>
+            </div>
+            <div class="itemActions">
+              <a class="btn link primary" target="_blank" rel="noopener"
+                 href="https://play.google.com/store/apps/details?id=com.potentia.momorates">
+                Open on Google Play
+              </a>
+
+              <a class="gplayBadge" target="_blank" rel="noopener"
+                 href="https://play.google.com/store/apps/details?id=com.potentia.momorates"
+                 aria-label="Get MoMo Rates on Google Play">
+                <span class="tri" aria-hidden="true"></span>
+                <span class="gplayText">
+                  <small>GET IT ON</small>
+                  <span>Google Play</span>
+                </span>
+              </a>
+            </div>
+          </article>
+
+          <!-- MoPay -->
+          <article class="itemCard">
+            <div class="itemTop">
+              <img class="appIcon" src="MoPay_Icon.png" alt="MoPay icon">
+              <div class="meta">
+                <b>MoPay</b>
+                <span>Merchant payments assistant</span>
+              </div>
+            </div>
+            <p class="desc">
+              An assistant that eases payments to merchants using MTN MoMoPay
+              without entering lengthy and complicated USSD codes.
+            </p>
+            <div class="chips">
+              <span class="chip">MoMoPay</span>
+              <span class="chip">Merchant</span>
+              <span class="chip">Assistant</span>
+            </div>
+            <div class="itemActions">
+              <span class="btn" style="cursor:default; opacity:.9;">
+                Play link coming soon
+              </span>
+              <span class="gplayBadge" style="opacity:.6; cursor:default;">
+                <span class="tri" aria-hidden="true"></span>
+                <span class="gplayText">
+                  <small>COMING TO</small>
+                  <span>Google Play</span>
+                </span>
+              </span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WEBSITES -->
+    <section id="websites">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <div>
+            <h2>Websites developed</h2>
+            <p>Modern web builds shipped and live.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <article class="itemCard">
+            <div class="itemTop">
+              <img class="appIcon" src="bizman_icon.png" alt="Beavertail Mini-mart Orders icon">
+              <div class="meta">
+                <b>Beavertail Mini-mart Orders</b>
+                <span>Browse stock • Cart • Order</span>
+              </div>
+            </div>
+            <p class="desc">
+              Shoppers can browse merchandise, add items to cart, and contact the store team
+              to package and deliver orders.
+            </p>
+            <div class="chips">
+              <span class="chip">E-commerce</span>
+              <span class="chip">Cart</span>
+              <span class="chip">WhatsApp ordering</span>
+            </div>
+            <div class="itemActions">
+              <a class="btn link blue" target="_blank" rel="noopener"
+                 href="https://beavertail-minimart.github.io/beavertail-minimart/">
+                Visit website
+              </a>
+            </div>
+          </article>
+
+          <article class="itemCard">
+            <div class="itemTop">
+              <img class="appIcon" src="playstore.png" alt="Spiritual Formation Africa icon">
+              <div class="meta">
+                <b>Spiritual Formation Africa</b>
+                <span>Youth For Christ International</span>
+              </div>
+            </div>
+            <p class="desc">
+              A ministry platform by Youth For Christ International, supporting faith-building content and engagement.
+            </p>
+            <div class="chips">
+              <span class="chip">Ministry</span>
+              <span class="chip">Content</span>
+              <span class="chip">Community</span>
+            </div>
+            <div class="itemActions">
+              <a class="btn link blue" target="_blank" rel="noopener"
+                 href="https://pattkab.github.io/youthforchristafrica/">
+                Visit website
+              </a>
+            </div>
+          </article>
+
+          <article class="itemCard">
+            <div class="itemTop">
+              <img class="appIcon" src="playstore.png" alt="Khari175 Homes icon">
+              <div class="meta">
+                <b>Khari175 Homes & Apartments</b>
+                <span>Homes and apartments for rent</span>
+              </div>
+            </div>
+            <p class="desc">
+              A clean listing and booking-style website for homes and apartments for rent under the Khari175 brand.
+            </p>
+            <div class="chips">
+              <span class="chip">Property</span>
+              <span class="chip">Listings</span>
+              <span class="chip">Booking-style</span>
+            </div>
+            <div class="itemActions">
+              <a class="btn link blue" target="_blank" rel="noopener"
+                 href="https://pattkab.github.io/khari175/">
+                Visit website
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <div>
+            <h2>In development</h2>
+            <p>Active builds and upcoming releases.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardPad">
+            <div class="grid2">
+              <div class="stat"><b>SF App</b><span>Faith-building platform for YFCI ministries</span></div>
+              <div class="stat"><b>BizManager</b><span>Hub for multi-business owners</span></div>
+              <div class="stat"><b>Kiosk POS</b><span>Stock • Sales • Profits • Balances</span></div>
+              <div class="stat"><b>SPREE Rentals & Bnb</b><span>Rentals and BnB ecosystem</span></div>
+              <div class="stat"><b>Motu Car Hire</b><span>Car hire and sharing platform</span></div>
+              <div class="stat"><b>Medella Health Corp</b><span>Health promotion and corporate platform</span></div>
+              <div class="stat"><b>4Hire</b><span>Hub for items put up for hire</span></div>
+              <div class="stat"><b>Kyeyo</b><span>Freelancers resource app</span></div>
+              <div class="stat"><b>Yard Sale</b><span>Community selling for used & new items</span></div>
+              <div class="stat"><b>Alumni App</b><span>Connect, network, and coordinate alumni</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <div>
+            <h2>Reviews & Testimonials</h2>
+            <p>Placeholders — edit these with real user feedback anytime.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="quote">
+            <div class="stars">★★★★★</div>
+            <p>“WA Direct is so convenient — I can message numbers quickly without saving contacts.”</p>
+            <b>— App user (Google Play)</b>
+          </div>
+          <div class="quote">
+            <div class="stars">★★★★★</div>
+            <p>“MoMo Rates helped me confirm charges before sending money. The comparisons are super helpful.”</p>
+            <b>— Mobile money user (Uganda)</b>
+          </div>
+          <div class="quote">
+            <div class="stars">★★★★★</div>
+            <p>“Clean UI, fast loading, and it does exactly what it promises. Looking forward to future releases.”</p>
+            <b>— Early adopter</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST A PROJECT -->
+    <section id="request">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <div>
+            <h2>Request a project</h2>
+            <p>Tell us what you want to build — this opens your email with the details pre-filled.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardPad">
+            <div class="formGrid">
+              <div class="field">
+                <label for="rqName">Your Name</label>
+                <input id="rqName" type="text" placeholder="e.g., Fiona" />
+              </div>
+              <div class="field">
+                <label for="rqPhone">Phone / WhatsApp (optional)</label>
+                <input id="rqPhone" type="text" placeholder="e.g., +256 7xx xxx xxx" />
+              </div>
+
+              <div class="field">
+                <label for="rqType">Project Type</label>
+                <select id="rqType">
+                  <option value="Mobile App (Android/iOS)">Mobile App (Android/iOS)</option>
+                  <option value="Website">Website</option>
+                  <option value="Web App / Dashboard">Web App / Dashboard</option>
+                  <option value="POS / Business Tool">POS / Business Tool</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="rqBudget">Budget Range (optional)</label>
+                <select id="rqBudget">
+                  <option value="Not sure yet">Not sure yet</option>
+                  <option value="Under $300">Under $300</option>
+                  <option value="$300 - $1,000">$300 - $1,000</option>
+                  <option value="$1,000 - $5,000">$1,000 - $5,000</option>
+                  <option value="$5,000+">$5,000+</option>
+                </select>
+              </div>
+
+              <div class="field" style="grid-column: 1 / -1;">
+                <label for="rqDesc">Describe what you want built</label>
+                <textarea id="rqDesc" placeholder="What problem are you solving? Key features? Users? Any examples?"></textarea>
+              </div>
+            </div>
+
+            <div class="formActions">
+              <button class="btn primary" id="rqEmailBtn">Send request via Email</button>
+              <a class="btn blue" id="rqWhatsBtn" target="_blank" rel="noopener">Send request via WhatsApp</a>
+              <button class="btn" id="rqClearBtn" type="button">Clear</button>
+            </div>
+
+            <div style="margin-top:10px; color:var(--muted2); font-size:12px;">
+              Email goes to <b>motuspotentia@gmail.com</b>. WhatsApp goes to <b>+256 772 844 881</b>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVELOPER -->
+    <section id="developer">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <div>
+            <h2>Meet the Developer</h2>
+            <p>Founder • Public Health Specialist • Tech enthusiast</p>
+          </div>
+        </div>
+
+        <div class="devGrid">
+          <div>
+            <img class="photo" src="Profile photo.png" alt="Dr. Patrick Mbusa Kabagambe">
+          </div>
+
+          <div class="card devCard">
+            <div class="cardPad">
+              <h3>Dr. Patrick Mbusa Kabagambe</h3>
+              <p>
+                Dr. Patrick Mbusa Kabagambe is a Public Health Specialist who also happens to be a tech enthusiast and hobbyist.
+                These projects are developed in his free time without compromising his medical and health professional service
+                to Ugandans and the global community.
+              </p>
+
+              <div class="contactRow" id="contact">
+                <a class="btn primary" href="https://wa.me/256772844881" target="_blank" rel="noopener">
+                  WhatsApp: +256 772 844 881
+                </a>
+                <a class="btn" href="https://wa.me/256702683911" target="_blank" rel="noopener">
+                  WhatsApp: +256 702 683 911
+                </a>
+                <a class="btn blue" href="mailto:motuspotentia@gmail.com">
+                  Email: motuspotentia@gmail.com
+                </a>
+              </div>
+
+              <div style="margin-top:14px; color:var(--muted2); font-size:12px;">
+                Interested in collaboration, a custom build, or polishing an MVP? Reach out on WhatsApp or email.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="wrap">
+        <div class="foot">
+          <div>
+            <div style="font-weight:900; color:var(--text);">Potentia Motus Ventures LLC</div>
+            <div>Apps • Websites • Product Prototypes</div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="#apps">Apps</a>
+            <a class="btn" href="#websites">Websites</a>
+            <a class="btn" href="#request">Request</a>
+            <a class="btn" href="#contact">Contact</a>
+          </div>
+        </div>
+        <div style="margin-top:10px;">
+          © <span id="year"></span> Potentia Motus Ventures LLC. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle with persistence
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const themeLabel = document.getElementById('themeLabel');
+
+    function applyTheme(mode){
+      root.setAttribute('data-theme', mode);
+      localStorage.setItem('pmv_theme', mode);
+      const isLight = mode === 'light';
+      themeLabel.textContent = isLight ? 'Light' : 'Dark';
+      themeBtn.querySelector('.icon').textContent = isLight ? '☀️' : '🌙';
+    }
+
+    const saved = localStorage.getItem('pmv_theme');
+    if (saved) {
+      applyTheme(saved);
+    } else {
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      applyTheme(prefersLight ? 'light' : 'dark');
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Request form -> Email + WhatsApp (no backend)
+    const toEmail = "motuspotentia@gmail.com";
+    const waNumber = "256772844881";
+
+    const rqName = document.getElementById('rqName');
+    const rqPhone = document.getElementById('rqPhone');
+    const rqType = document.getElementById('rqType');
+    const rqBudget = document.getElementById('rqBudget');
+    const rqDesc = document.getElementById('rqDesc');
+
+    const rqEmailBtn = document.getElementById('rqEmailBtn');
+    const rqWhatsBtn = document.getElementById('rqWhatsBtn');
+    const rqClearBtn = document.getElementById('rqClearBtn');
+
+    function buildMessage(){
+      const name = (rqName.value || "").trim();
+      const phone = (rqPhone.value || "").trim();
+      const type = rqType.value;
+      const budget = rqBudget.value;
+      const desc = (rqDesc.value || "").trim();
+
+      const lines = [
+        "PROJECT REQUEST — Potentia Motus Ventures LLC",
+        "",
+        `Name: ${name || "-"}`,
+        `Phone/WhatsApp: ${phone || "-"}`,
+        `Project type: ${type}`,
+        `Budget: ${budget}`,
+        "",
+        "Description:",
+        desc || "-",
+        "",
+        "Preferred next step: Please reply with timeline + cost estimate."
+      ];
+      return lines.join("\n");
+    }
+
+    function updateWhatsAppLink(){
+      const msg = encodeURIComponent(buildMessage());
+      rqWhatsBtn.href = `https://wa.me/${waNumber}?text=${msg}`;
+    }
+
+    function sendEmail(){
+      const subject = encodeURIComponent("Project Request — Potentia Motus Ventures LLC");
+      const body = encodeURIComponent(buildMessage());
+      window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+    }
+
+    function clearForm(){
+      rqName.value = "";
+      rqPhone.value = "";
+      rqType.selectedIndex = 0;
+      rqBudget.selectedIndex = 0;
+      rqDesc.value = "";
+      updateWhatsAppLink();
+    }
+
+    [rqName, rqPhone, rqType, rqBudget, rqDesc].forEach(el => {
+      el.addEventListener('input', updateWhatsAppLink);
+      el.addEventListener('change', updateWhatsAppLink);
+    });
+
+    rqEmailBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      sendEmail();
+    });
+
+    rqClearBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearForm();
+    });
+
+    // init WA link
+    updateWhatsAppLink();
+  </script>
+</body>
+</html>
