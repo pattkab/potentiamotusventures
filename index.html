@@ -8,20 +8,21 @@
 
   <style>
     :root{
-      --bg: #0b1220;
-      --surface: rgba(255,255,255,.06);
-      --surface2: rgba(255,255,255,.10);
-      --border: rgba(255,255,255,.14);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --muted2: rgba(255,255,255,.55);
+      /* LIGHT MODE DEFAULT */
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface2: #f1f5f9;
+      --border: rgba(2,6,23,.12);
+      --text: rgba(2,6,23,.92);
+      --muted: rgba(2,6,23,.72);
+      --muted2: rgba(2,6,23,.58);
+      --shadow: 0 12px 26px rgba(2,6,23,.10);
 
       --brand: #22c55e;     /* green */
       --brand2:#3b82f6;     /* blue accent */
       --warn:#f59e0b;
       --danger:#ef4444;
 
-      --shadow: 0 14px 30px rgba(0,0,0,.35);
       --radius: 18px;
       --radius2: 26px;
 
@@ -36,9 +37,9 @@
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 650px at 20% -10%, rgba(34,197,94,.22), transparent 55%),
-                  radial-gradient(900px 520px at 95% 0%, rgba(59,130,246,.18), transparent 55%),
-                  radial-gradient(900px 520px at 30% 105%, rgba(245,158,11,.12), transparent 55%),
+      background: radial-gradient(1200px 650px at 20% -10%, rgba(34,197,94,.16), transparent 55%),
+                  radial-gradient(900px 520px at 95% 0%, rgba(59,130,246,.14), transparent 55%),
+                  radial-gradient(900px 520px at 30% 105%, rgba(245,158,11,.10), transparent 55%),
                   var(--bg);
       color: var(--text);
       line-height: 1.5;
@@ -57,8 +58,8 @@
       display:flex;
       align-items:center;
       backdrop-filter: blur(12px);
-      background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.05));
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(to bottom, rgba(255,255,255,.90), rgba(255,255,255,.70));
+      border-bottom: 1px solid rgba(2,6,23,.08);
     }
 
     /* Create space so content isn't hidden behind fixed header */
@@ -84,7 +85,7 @@
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
       overflow: hidden;
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.85);
       display:flex;
       align-items:center;
       justify-content:center;
@@ -138,7 +139,7 @@
     .navlinks a:hover{
       color: var(--text);
       border-color: var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(2,6,23,.04);
     }
 
     .actions{
@@ -152,7 +153,7 @@
       padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.90);
       color: var(--text);
       font-weight: 700;
       font-size: 13px;
@@ -161,13 +162,13 @@
       user-select:none;
       white-space:nowrap;
     }
-    .btn:hover{ background: rgba(255,255,255,.10); }
+    .btn:hover{ background: rgba(241,245,249,.95); }
     .btn:active{ transform: scale(.98); }
 
     .btn.primary{
-      border-color: rgba(34,197,94,.45);
+      border-color: rgba(34,197,94,.35);
       background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(34,197,94,.70));
-      color: #06240f;
+      color: #072013;
     }
 
     /* View portfolio should be rectangular with rounded edges */
@@ -179,7 +180,7 @@
     }
 
     .btn.blue{
-      border-color: rgba(59,130,246,.45);
+      border-color: rgba(59,130,246,.35);
       background: linear-gradient(135deg, rgba(59,130,246,.92), rgba(59,130,246,.68));
       color: #061428;
     }
@@ -207,7 +208,7 @@
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(2,6,23,.03);
       color: var(--muted);
       font-size: 12px;
       width: fit-content;
@@ -238,7 +239,7 @@
       padding: 12px;
       border-radius: 16px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(2,6,23,.02);
     }
     .stat b{ display:block; font-size: 18px; }
     .stat span{ color: var(--muted); font-size: 12px; }
@@ -247,8 +248,8 @@
     .aside::before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(520px 260px at 30% 30%, rgba(34,197,94,.24), transparent 58%),
-                  radial-gradient(520px 260px at 90% 60%, rgba(59,130,246,.20), transparent 55%);
+      background: radial-gradient(520px 260px at 30% 30%, rgba(34,197,94,.18), transparent 58%),
+                  radial-gradient(520px 260px at 90% 60%, rgba(59,130,246,.14), transparent 55%);
       pointer-events:none;
     }
 
@@ -260,7 +261,7 @@
       height:100%;
     }
 
-    /* NEW: store badges next to each other */
+    /* Store badges side-by-side (same size) */
     .storeBadges{
       display:flex;
       gap: 10px;
@@ -269,10 +270,16 @@
       flex-wrap: nowrap;
     }
     .storeBadges img{
-      height: 44px;
+      height: 44px;         /* playstore = standard */
       width: auto;
       object-fit: contain;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.20));
+      filter: drop-shadow(0 10px 18px rgba(2,6,23,.10));
+      display:block;
+    }
+    /* Force App Store badge to match Play Store size */
+    .storeBadges img[src*="appstore"]{
+      height: 44px;
+      max-height: 44px;
     }
 
     .miniRow{ display:flex; gap: 10px; flex-wrap:wrap; }
@@ -281,7 +288,7 @@
       padding: 9px 12px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(2,6,23,.03);
       color: var(--muted);
       font-size: 13px;
       font-weight:600;
@@ -326,7 +333,7 @@
       border-radius: 16px;
       object-fit: cover;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.08);
+      background: rgba(2,6,23,.03);
     }
     .meta{ flex:1; min-width:0; }
     .meta b{
@@ -358,7 +365,7 @@
       padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(2,6,23,.03);
       color: var(--muted);
       font-weight:700;
       letter-spacing:.2px;
@@ -367,12 +374,12 @@
     .itemActions{
       padding: 12px 14px 14px;
       display:flex; gap: 10px; flex-wrap:wrap;
-      border-top: 1px solid rgba(255,255,255,.06);
+      border-top: 1px solid rgba(2,6,23,.08);
       align-items:center;
       justify-content:space-between;
     }
 
-    .btn.link{ padding: 10px 12px; font-weight: 800; background: rgba(255,255,255,.06); }
+    .btn.link{ padding: 10px 12px; font-weight: 800; background: rgba(2,6,23,.03); }
 
     /* Google Play badge (CSS-only) */
     .gplayBadge{
@@ -382,17 +389,17 @@
       padding: 10px 12px;
       border-radius: 14px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(2,6,23,.03);
       font-weight:900;
       letter-spacing:.2px;
       white-space:nowrap;
     }
     .tri{
       width:0; height:0;
-      border-left: 12px solid rgba(255,255,255,.85);
+      border-left: 12px solid rgba(2,6,23,.82);
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent;
-      filter: drop-shadow(0 8px 10px rgba(0,0,0,.25));
+      filter: drop-shadow(0 8px 10px rgba(2,6,23,.12));
     }
     .gplayText{ display:flex; flex-direction:column; line-height:1.05; }
     .gplayText small{ font-size:10px; color: var(--muted); font-weight:800; }
@@ -403,7 +410,7 @@
       padding: 16px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.75);
       box-shadow: var(--shadow);
     }
     .quote p{ margin:0; color: var(--muted); font-size: 14px; }
@@ -423,7 +430,7 @@
       padding: 12px 12px;
       border-radius: 14px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.9);
       color: var(--text);
       outline: none;
       font-size: 14px;
@@ -447,7 +454,8 @@
       border-radius: 16px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.85);
+      display:block;
     }
 
     .devCard h3{ margin:0; font-size: 18px; }
@@ -467,7 +475,7 @@
       padding: 14px 16px;
       border-radius: var(--radius2);
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.75);
     }
 
     /* Responsive */
@@ -570,7 +578,7 @@
         <div class="card aside">
           <div class="cardPad asideInner">
 
-            <!-- NEW: badges side by side -->
+            <!-- Store badges side-by-side (same size) -->
             <div class="storeBadges" aria-label="Store badges">
               <img src="playstore.png" alt="Google Play" />
               <img src="appstore.png" alt="Apple App Store" />
@@ -582,7 +590,7 @@
               <span class="pill">iOS coming soon</span>
             </div>
 
-            <div class="card" style="border-radius:18px; background:rgba(255,255,255,.06); border:1px solid var(--border); box-shadow:none;">
+            <div class="card" style="border-radius:18px; background:rgba(255,255,255,.8); border:1px solid var(--border); box-shadow:none;">
               <div class="cardPad" style="padding:14px;">
                 <div style="font-weight:800;">What we build</div>
                 <div style="color:var(--muted); font-size:13px; margin-top:6px;">
@@ -591,7 +599,7 @@
               </div>
             </div>
 
-            <div class="card" style="border-radius:18px; background:rgba(255,255,255,.06); border:1px solid var(--border); box-shadow:none;">
+            <div class="card" style="border-radius:18px; background:rgba(255,255,255,.8); border:1px solid var(--border); box-shadow:none;">
               <div class="cardPad" style="padding:14px;">
                 <div style="font-weight:800;">Focus</div>
                 <div style="color:var(--muted); font-size:13px; margin-top:6px;">
